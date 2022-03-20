@@ -1,0 +1,24 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-height: fit-content;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #FCAC0D;
+}
+
+.headerContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #FCAC0D;
+}
+
+.btn-secondary input {
+    display: none;
+}
+
+.btn-group-toggle {
+    width: 100%;
+}

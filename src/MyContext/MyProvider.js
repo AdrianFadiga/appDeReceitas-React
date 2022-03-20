@@ -40,11 +40,9 @@ function MyProvider({ children }) {
     setCocktails,
   };
   return (
-    <main>
-      <MyContext.Provider value={ { store } }>
-        {children}
-      </MyContext.Provider>
-    </main>
+    <MyContext.Provider value={ { store } }>
+      {children}
+    </MyContext.Provider>
   );
 }
 

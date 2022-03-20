@@ -1,24 +1,27 @@
 import React from 'react';
 import './App.css';
 import { Switch, BrowserRouter, Route } from 'react-router-dom';
-import Login from './Pages/Login';
+import Login from './Pages/Login/Login';
 import MyProvider from './MyContext/MyProvider';
-import Foods from './Pages/Foods';
-import FoodRecipe from './Pages/FoodRecipe';
-import Drinks from './Pages/Drinks';
-import DrinkRecipe from './Pages/DrinkRecipe';
-import Explore from './Pages/Explore';
-import ExploreFoods from './Pages/ExploreFoods';
-import ExploreDrinks from './Pages/ExploreDrinks';
-import ExploreFoodsIngredients from './Pages/ExploreFoodsIngredients';
-import ExploreDrinksIngredients from './Pages/ExploreDrinksIngredients';
-import ExploreFoodsNationalities from './Pages/ExploreFoodsNationalities';
-import Profile from './Pages/Profile';
-import DoneRecipes from './Pages/DoneRecipes';
-import FavoriteRecipes from './Pages/FavoriteRecipes';
-import DrinksInProgress from './Pages/DrinksInProgress';
-import FoodsInProgress from './Pages/FoodsInProgress';
-import NotFound from './Pages/NotFound';
+import Foods from './Pages/Foods/Foods';
+import FoodRecipe from './Pages/FoodRecipe/FoodRecipe';
+import Drinks from './Pages/Drinks/Drinks';
+import DrinkRecipe from './Pages/DrinkRecipe/DrinkRecipe';
+import Explore from './Pages/Explore/Explore';
+import ExploreFoods from './Pages/ExploreFoods/ExploreFoods';
+import ExploreDrinks from './Pages/ExploreDrinks/ExploreDrinks';
+import ExploreFoodsIngredients
+from './Pages/ExploreFoodsIngredients/ExploreFoodsIngredients';
+import ExploreDrinksIngredients
+from './Pages/ExploreDrinksIngredients/ExploreDrinksIngredients';
+import ExploreFoodsNationalities
+from './Pages/ExploreFoodsNationalities/ExploreFoodsNationalities';
+import Profile from './Pages/Profile/Profile';
+import DoneRecipes from './Pages/DoneRecipes/DoneRecipes';
+import FavoriteRecipes from './Pages/FavoriteRecipes/FavoriteRecipes';
+import DrinksInProgress from './Pages/DrinksInProgress/DrinksInProgress';
+import FoodsInProgress from './Pages/FoodsInProgress/FoodsInProgress';
+import NotFound from './Pages/NotFound/NotFound';
 
 function App() {
   return (
