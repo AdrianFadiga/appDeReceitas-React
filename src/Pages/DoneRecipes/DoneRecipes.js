@@ -1,7 +1,9 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import DoneRecipeCard from '../../Components/DoneRecipeCard/DoneRecipeCard';
 import Header from '../../Components/Header/Header';
 import MyContext from '../../MyContext/MyContext';
+import './DoneRecipes.css';
 
 function DoneRecipes() {
   const { store: { setPageTitle, setShowSearchIcon } } = useContext(MyContext);
@@ -27,24 +29,29 @@ function DoneRecipes() {
   return (
     <>
       <Header />
-      <button
-        data-testid="filter-by-all-btn"
-        type="button"
-        onClick={ () => setFilter('') }
-      >
-        All
-      </button>
-      {buttons.map((button) => (
-        <button
+      <div className="buttonGroup">
+        <Button
+          data-testid="filter-by-all-btn"
           type="button"
-          value={ button.toLowerCase() }
-          key={ button }
-          onClick={ ({ target }) => setFilter(target.value) }
-          data-testid={ `filter-by-${button.toLowerCase()}-btn` }
+          onClick={ () => setFilter('') }
+          variant="secondary"
         >
-          {button}
-        </button>
-      ))}
+          All
+        </Button>
+        {buttons.map((button) => (
+          <Button
+            type="button"
+            value={ button.toLowerCase() }
+            key={ button }
+            onClick={ ({ target }) => setFilter(target.value) }
+            data-testid={ `filter-by-${button.toLowerCase()}-btn` }
+            variant="secondary"
+
+          >
+            {button}
+          </Button>
+        ))}
+      </div>
       {doneRecipes.filter(({ type }) => type.includes(filter))
         .map(({ alcoholicOrNot,
           category, doneDate, id, image, name, nationality, tags, type }, index) => (

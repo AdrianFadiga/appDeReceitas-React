@@ -21,8 +21,8 @@ function Checkbox({ i, ingredient, measure, handleChange, id, type }) {
     <label
       htmlFor={ i }
       data-testid={ `${i}-ingredient-step` }
-      style={ isChecked ? { textDecoration: 'none solid rgb(0, 0, 0)' }
-        : { backgroundColor: 'red' } }
+      style={ isChecked ? { textDecorationLine: 'line-through' }
+        : { textDecorationLine: 'none' } }
     >
       <input
         type="checkbox"

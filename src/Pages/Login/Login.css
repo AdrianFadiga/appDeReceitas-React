@@ -11,6 +11,12 @@
     flex-direction: column;
 }
 
+.imgContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 .imgContainer img {
     width: 125px;

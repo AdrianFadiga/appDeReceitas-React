@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Link, useParams, useHistory, useLocation } from 'react-router-dom';
-import { Card as NovoCard } from 'react-bootstrap';
+import { useParams, useHistory } from 'react-router-dom';
+import { Card as NovoCard, ListGroup, Carousel } from 'react-bootstrap';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import shareIcon from '../../images/shareIcon.svg';
 import { fetchFoods, fetchDrinks } from '../../Services';
 import { checkFoodIsFavorited,
   getIngredients,
   saveFoodFavStorage,
   removeFavStorageFood } from '../../Helpers';
 import MyContext from '../../MyContext/MyContext';
+import './FoodRecipe.css';
 
 function FoodRecipe() {
   const { store: { isFavorited,
@@ -20,7 +22,6 @@ function FoodRecipe() {
     initRecipe,
     setInitRecipe } } = useContext(MyContext);
   const SIX = 6;
-  const { pathname } = useLocation();
   const { id } = useParams();
   const history = useHistory();
   const [recipeDrinks, setRecipeDrinks] = useState([]);
@@ -65,7 +66,7 @@ function FoodRecipe() {
   }, []);
 
   return (
-    <>
+    <section className="foodRecipe">
       {foodRecipe.map(
         ({
           idMeal,
@@ -75,77 +76,80 @@ function FoodRecipe() {
           strInstructions,
           strYoutube,
         }) => (
-          <div
-            className="foodRecipe"
-            key={ idMeal }
-          >
-            <img
-              style={ { width: '100%' } }
-              data-testid="recipe-photo"
-              src={ strMealThumb }
-              alt="oi"
-            />
-            <h3 data-testid="recipe-category">{strCategory}</h3>
-            <h2 data-testid="recipe-title">{strMeal}</h2>
-            <button
-              data-testid="share-btn"
-              type="button"
-              value={ `http://localhost:3000${pathname}` }
-              // Source: https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
-              onClick={ ({ target }) => {
-                navigator.clipboard.writeText(target.value);
-                setShowLinkCopied(true);
-              } }
-            >
-              Compartilhar
-            </button>
-            {showLinkCopied
+          <div key={ idMeal }>
+            <NovoCard>
+              <NovoCard.Img
+                variant="top"
+                data-testid="recipe-photo"
+                src={ strMealThumb }
+              />
+              <NovoCard.Body>
+                <NovoCard.Title data-testid="recipe-title">{strMeal}</NovoCard.Title>
+                <NovoCard.Subtitle
+                  data-testid="recipe-category"
+                >
+                  {strCategory}
+                </NovoCard.Subtitle>
+                <div className="inputs">
+                  <input
+                    data-testid="share-btn"
+                    src={ shareIcon }
+                    type="image"
+                    alt="compartilhar"
+                    value={ `http://localhost:3000/foods/${id}` }
+                    // Source: https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+                    onClick={ ({ target }) => {
+                      navigator.clipboard.writeText(target.value);
+                      setShowLinkCopied(true);
+                    } }
+                  />
+                  {showLinkCopied
             && <p>Link copied!</p>}
-            <input
-              data-testid="favorite-btn"
-              type="image"
-              src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
-              alt="favoriteRecipe"
-              onClick={ () => handleClick() }
-            />
-
-            <h2>Ingredientes:</h2>
-            {foodIngredients.map(({ ingredient, measure }, i) => (
-              <p
-                data-testid={ `${i}-ingredient-name-and-measure` }
-                key={ i }
+                  <input
+                    data-testid="favorite-btn"
+                    type="image"
+                    src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
+                    alt="favoriteRecipe"
+                    onClick={ () => handleClick() }
+                  />
+                </div>
+              </NovoCard.Body>
+            </NovoCard>
+            <ListGroup>
+              <h3>Ingredientes:</h3>
+              {foodIngredients.map(({ ingredient, measure }, i) => (
+                <ListGroup.Item
+                  variant="secondary"
+                  data-testid={ `${i}-ingredient-name-and-measure` }
+                  key={ i }
+                >
+                  { `${ingredient} - ${measure}` }
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+            <ListGroup>
+              <h3>Modo de preparo:</h3>
+              <ListGroup.Item
+                data-testid="instructions"
+                variant="secondary"
               >
-                { `${ingredient} - ${measure}` }
-              </p>
-            ))}
-            <h3>Modo de preparo:</h3>
-            <p data-testid="instructions">{strInstructions}</p>
-            <a
-              data-testid="video"
-              href={ strYoutube }
-            >
-              Video
-
-            </a>
-            <iframe
-              width="560"
-              height="315"
-              src={ `https://www.youtube.com/embed/${strYoutube.split('=')[1]}` }
-              title="YouTube video player"
-              frameBorder="0"
-              allowFullScreen
-            />
-
-            {recipeDrinks.map(({ idDrink, strDrink, strDrinkThumb }, i) => (
-              <div
-                key={ i }
-                data-testid={ `${i}-recomendation-card` }
+                {strInstructions}
+              </ListGroup.Item>
+            </ListGroup>
+            <NovoCard>
+              <NovoCard.Body
+                style={ { padding: '0px' } }
               >
-                <img data-testid="recipe-photo" src={ strDrinkThumb } alt="oi" />
-                <h2 data-testid={ `${i}-recomendation-title` }>{strDrink}</h2>
-                <Link to={ `/drinks/${idDrink}` }>Detalhes</Link>
-              </div>
-            ))}
+                <iframe
+                  width="100%"
+                  height="315"
+                  src={ `https://www.youtube.com/embed/${strYoutube.split('=')[1]}` }
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allowFullScreen
+                />
+              </NovoCard.Body>
+            </NovoCard>
 
             <button
               onClick={ () => {
@@ -161,7 +165,29 @@ function FoodRecipe() {
           </div>
         ),
       )}
-    </>
+      <Carousel fade>
+        {recipeDrinks.map(({ idDrink, strDrink, strDrinkThumb }, i) => (
+          <Carousel.Item
+            data-testid={ `${i}-recomendation-card` }
+            key={ i }
+          >
+            <input
+              type="image"
+              className="d-block w-100"
+              data-testid="recipe-photo"
+              src={ strDrinkThumb }
+              alt="oi"
+              onClick={ () => history.push(`/drinks/${idDrink}`) }
+            />
+            <Carousel.Caption
+              data-testid={ `${i}-recomendation-title` }
+            >
+              {strDrink}
+            </Carousel.Caption>
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    </section>
   );
 }
 

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { Card as NovoCard, ListGroup, Button } from 'react-bootstrap';
 import { fetchFoods } from '../../Services';
 import { getIngredients,
   saveFoodProgress,
@@ -10,13 +11,13 @@ import { getIngredients,
   saveDoneRecipe } from '../../Helpers';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import shareIcon from '../../images/shareIcon.svg';
 import MyContext from '../../MyContext/MyContext';
 import Checkbox from '../../Components/Checkbox/Checkbox';
+import './FoodsInProgress.css';
 
 // Finalizado até o req 53;
-// Caçar dois bugs:
-// Um que faz a aplicação quebrar porque o includes da checkbox dá undefined;
-// Outro que faz com que o localStorage apague toda a array de checados quando da f5 na página;
+// Cacar bug que faz com que o localStorage apague toda a array de checados quando da f5 na página;
 
 function FoodsInProgress() {
   const { store: { isFavorited,
@@ -77,49 +78,80 @@ function FoodsInProgress() {
           strInstructions,
         }) => (
           <div key={ idMeal }>
-            <button
-              data-testid="share-btn"
-              type="button"
-              value={ `http://localhost:3000/foods/${id}` }
-              // Source: https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
-              onClick={ ({ target }) => {
-                navigator.clipboard.writeText(target.value);
-                setShowLinkCopied(true);
-              } }
+            <NovoCard
+              style={ { width: '95%' } }
             >
-              Compartilhar
-            </button>
-            {showLinkCopied
-            && <p>Link copied!</p>}
-            <input
-              data-testid="favorite-btn"
-              type="image"
-              src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
-              alt="favoriteRecipe"
-              onClick={ () => handleClick() }
-            />
-            <h3 data-testid="recipe-category">{strCategory}</h3>
-            <h2 data-testid="recipe-title">{strMeal}</h2>
-            <img data-testid="recipe-photo" src={ strMealThumb } alt="oi" />
-            <h2>Ingredientes:</h2>
-            {foodIngredients.map(({ ingredient, measure }, i) => (
-              <Checkbox
-                key={ i }
-                ingredient={ ingredient }
-                measure={ measure }
-                id={ id }
-                handleChange={ handleChange }
-                i={ i }
-                type="meals"
+              <NovoCard.Img
+                variant="top"
+                data-testid="recipe-photo"
+                src={ strMealThumb }
               />
-            ))}
-            <h3>Modo de preparo:</h3>
-            <p data-testid="instructions">{strInstructions}</p>
+              <NovoCard.Body>
+                <NovoCard.Title data-testid="recipe-title">{strMeal}</NovoCard.Title>
+                <NovoCard.Subtitle
+                  data-testid="recipe-category"
+                >
+                  {strCategory}
+
+                </NovoCard.Subtitle>
+                <div className="inputs">
+                  <input
+                    data-testid="share-btn"
+                    src={ shareIcon }
+                    type="image"
+                    alt="compartilhar"
+                    value={ `http://localhost:3000/foods/${id}` }
+                    // Source: https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+                    onClick={ ({ target }) => {
+                      navigator.clipboard.writeText(target.value);
+                      setShowLinkCopied(true);
+                    } }
+                  />
+                  {showLinkCopied
+            && <p>Link copied!</p>}
+                  <input
+                    data-testid="favorite-btn"
+                    type="image"
+                    src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
+                    alt="favoriteRecipe"
+                    onClick={ () => handleClick() }
+                  />
+                </div>
+              </NovoCard.Body>
+            </NovoCard>
+            <ListGroup>
+              <h3>Ingredientes:</h3>
+              {foodIngredients.map(({ ingredient, measure }, i) => (
+                <ListGroup.Item
+                  key={ i }
+                  variant="secondary"
+                >
+                  <Checkbox
+                    ingredient={ ingredient }
+                    measure={ measure }
+                    id={ id }
+                    handleChange={ handleChange }
+                    i={ i }
+                    type="meals"
+                  />
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+            <ListGroup>
+              <h3>Modo de preparo:</h3>
+              <ListGroup.Item
+                variant="secondary"
+                data-testid="instructions"
+              >
+                {strInstructions}
+              </ListGroup.Item>
+            </ListGroup>
           </div>
         ),
       )}
-      <button
+      <Button
         data-testid="finish-recipe-btn"
+        variant={ isDisabled ? 'secondary' : 'primary' }
         type="button"
         disabled={ isDisabled }
         onClick={ () => {
@@ -128,7 +160,7 @@ function FoodsInProgress() {
         } }
       >
         Finalizar Receita
-      </button>
+      </Button>
     </>
   );
 }
