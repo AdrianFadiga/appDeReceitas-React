@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { Card as NovoCard, ListGroup, Carousel } from 'react-bootstrap';
+import { Card as NovoCard, ListGroup, Carousel, Button } from 'react-bootstrap';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
@@ -84,7 +84,9 @@ function FoodRecipe() {
                 src={ strMealThumb }
               />
               <NovoCard.Body>
-                <NovoCard.Title data-testid="recipe-title">{strMeal}</NovoCard.Title>
+                <NovoCard.Title data-testid="recipe-title">
+                  {strMeal}
+                </NovoCard.Title>
                 <NovoCard.Subtitle
                   data-testid="recipe-category"
                 >
@@ -151,7 +153,7 @@ function FoodRecipe() {
               </NovoCard.Body>
             </NovoCard>
 
-            <button
+            <Button
               onClick={ () => {
                 setInitRecipe(true);
                 history.push(`/foods/${idMeal}/in-progress`);
@@ -161,7 +163,7 @@ function FoodRecipe() {
               data-testid="start-recipe-btn"
             >
               {initRecipe ? 'Iniciar Receita' : 'Continue Recipe'}
-            </button>
+            </Button>
           </div>
         ),
       )}

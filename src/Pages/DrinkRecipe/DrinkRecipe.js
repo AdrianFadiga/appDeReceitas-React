@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useHistory, Link, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import { Card as NovoCard, ListGroup, Carousel, Button } from 'react-bootstrap';
 import { getIngredients,
   checkDrinkIsFavorited,
   removeFavStorageDrink,
@@ -7,7 +8,9 @@ import { getIngredients,
 import { fetchDrinks, fetchFoods } from '../../Services';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import shareIcon from '../../images/shareIcon.svg';
 import MyContext from '../../MyContext/MyContext';
+import '../FoodRecipe/FoodRecipe.css';
 
 function DrinkRecipe() {
   const { store: { isFavorited,
@@ -19,7 +22,6 @@ function DrinkRecipe() {
     initRecipe,
     setInitRecipe } } = useContext(MyContext);
   const SIX = 6;
-  const { pathname } = useLocation();
   const { id } = useParams();
   const history = useHistory();
   const [recipeFoods, setRecipeFoods] = useState([]);
@@ -34,26 +36,6 @@ function DrinkRecipe() {
     setIsFavorited(!isFavorited);
     return !isFavorited ? saveDrinkFavStorage(drinkRecipe) : removeFavStorageDrink(id);
   };
-
-  // const responsive = {
-  //   superLargeDesktop: {
-  //     // the naming can be any, depends on you.
-  //     breakpoint: { max: 4000, min: 3000 },
-  //     items: 5,
-  //   },
-  //   desktop: {
-  //     breakpoint: { max: 3000, min: 1024 },
-  //     items: 3,
-  //   },
-  //   tablet: {
-  //     breakpoint: { max: 1024, min: 464 },
-  //     items: 2,
-  //   },
-  //   mobile: {
-  //     breakpoint: { max: 464, min: 0 },
-  //     items: 2,
-  //   },
-  // };
 
   useEffect(() => {
     const setRecipeEffect = async () => {
@@ -88,7 +70,7 @@ function DrinkRecipe() {
   }, []);
 
   return (
-    <>
+    <section className="foodRecipe">
       {drinkRecipe.map(
         ({
           idDrink,
@@ -98,61 +80,105 @@ function DrinkRecipe() {
           strAlcoholic,
         }) => (
           <div key={ idDrink }>
-            <button
-              data-testid="share-btn"
-              type="button"
-              value={ `http://localhost:3000${pathname}` }
-              // Source: https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
-              onClick={ ({ target }) => {
-                navigator.clipboard.writeText(target.value);
-                setShowLinkCopied(true);
-              } }
-            >
-              Compartilhar
-            </button>
-            {showLinkCopied
+            <NovoCard>
+              <NovoCard.Img
+                variant="top"
+                src={ strDrinkThumb }
+                data-testid="recipe-photo"
+              />
+              <NovoCard.Body>
+                <NovoCard.Title
+                  data-testid="recipe-title"
+                >
+                  {strDrink}
+                </NovoCard.Title>
+                <NovoCard.Subtitle
+                  data-testid="recipe-category"
+                >
+                  {strAlcoholic}
+                </NovoCard.Subtitle>
+                <div className="inputs">
+                  <input
+                    data-testid="share-btn"
+                    src={ shareIcon }
+                    type="image"
+                    alt="compartilhar"
+                    value={ `http://localhost:3000/foods/${id}` }
+                    // Source: https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+                    onClick={ ({ target }) => {
+                      navigator.clipboard.writeText(target.value);
+                      setShowLinkCopied(true);
+                    } }
+                  />
+                  {showLinkCopied
             && <p>Link copied!</p>}
-            <input
-              data-testid="favorite-btn"
-              type="image"
-              src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
-              alt="favoriteRecipe"
-              onClick={ handleClick }
-            />
-
-            <h3 data-testid="recipe-category">{strAlcoholic}</h3>
-            <h2 data-testid="recipe-title">{strDrink}</h2>
-            <img data-testid="recipe-photo" src={ strDrinkThumb } alt="oi" />
-            <h2>Ingredientes:</h2>
-            {drinkIngredients.map(({ ingredient, measure }, i) => (
-              <p data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>
-                {`${ingredient} - ${measure}` }
-              </p>
-            ))}
-            <h3>Modo de preparo:</h3>
-            <p data-testid="instructions">{strInstructions}</p>
-            {recipeFoods.map(({ idMeal, strMeal, strMealThumb }, i) => (
-              <div
-                key={ i }
-                data-testid={ `${i}-recomendation-card` }
+                  <input
+                    data-testid="favorite-btn"
+                    type="image"
+                    src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
+                    alt="favoriteRecipe"
+                    onClick={ () => handleClick() }
+                  />
+                </div>
+              </NovoCard.Body>
+            </NovoCard>
+            <ListGroup>
+              <h3>Ingredientes:</h3>
+              {drinkIngredients.map(({ ingredient, measure }, i) => (
+                <ListGroup.Item
+                  variant="secondary"
+                  data-testid={ `${i}-ingredient-name-and-measure` }
+                  key={ i }
+                >
+                  {`${ingredient} - ${measure}` }
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+            <ListGroup>
+              <h3>Modo de preparo:</h3>
+              <ListGroup.Item
+                variant="secondary"
+                data-testid="instructions"
               >
-                <img data-testid="recipe-photo" src={ strMealThumb } alt="oi" />
-                <h2 data-testid={ `${i}-recomendation-title` }>{strMeal}</h2>
-                <Link to={ `/foods/${idMeal}` }>Detalhes</Link>
-              </div>
-            ))}
-            <button
+                {strInstructions}
+              </ListGroup.Item>
+            </ListGroup>
+            <Button
               onClick={ () => iniciarReceita(idDrink) }
               className="startRecipe"
               type="button"
               data-testid="start-recipe-btn"
             >
               {initRecipe ? 'Iniciar Receita' : 'Continue Recipe'}
-            </button>
+            </Button>
+            <Carousel
+              fade
+            >
+              {recipeFoods.map(({ idMeal, strMeal, strMealThumb }, i) => (
+                <Carousel.Item
+                  key={ i }
+                  data-testid={ `${i}-recomendation-card` }
+                >
+                  <input
+                    type="image"
+                    className="d-block w-100"
+                    data-testid="recipe-photo"
+                    src={ strMealThumb }
+                    alt="oi"
+                    onClick={ () => history.push(`/foods/${idMeal}`) }
+                  />
+                  <Carousel.Caption
+                    data-testid={ `${i}-recomendation-title` }
+                  >
+                    {strMeal}
+                  </Carousel.Caption>
+                </Carousel.Item>
+              ))}
+            </Carousel>
           </div>
         ),
       )}
-    </>
+    </section>
   );
 }
 

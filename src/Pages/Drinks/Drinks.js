@@ -6,13 +6,14 @@ import Header from '../../Components/Header/Header';
 import Card from '../../Components/Card/Card';
 import MyContext from '../../MyContext/MyContext';
 import CategoryListButton from '../../Components/CategoryListButton/CategoryListButton';
+import './Drinks.css';
 
 function Drinks() {
   const { store: { data,
     setShowSearchIcon, setData, setPageTitle } } = useContext(MyContext);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [drinkCategories, setDrinkCategories] = useState([]);
-  const FIVE = 5;
+  const SIX = 6;
 
   const fetchInitDrinks = async () => {
     const result = await (await fetchDrinks('search.php?s='));
@@ -20,8 +21,9 @@ function Drinks() {
   };
 
   const fetchDrinksCategories = async () => {
-    const resultCategories = await fetchDrinks('list.php?c=list');
-    setDrinkCategories(resultCategories.slice(0, FIVE));
+    const result = await fetchDrinks('list.php?c=list');
+    result.unshift({ strCategory: 'All' });
+    setDrinkCategories(result.slice(0, SIX));
   };
 
   const handleSelect = async (strCategory) => {
@@ -47,41 +49,32 @@ function Drinks() {
   }, []);
 
   return (
-    <>
+    <section className="drinksPage">
       <Header />
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        onClick={ () => handleSelect('All') }
-      >
-        All
-
-      </button>
-      {drinkCategories.map(({ strCategory }, index) => (
-        <CategoryListButton
-          key={ index }
-          strCategory={ strCategory }
-          onClick={ () => handleSelect(strCategory) }
-        />
-      ))}
-      <main>
-        <h3>Drinks:</h3>
-        <section className="all-recipes">
-          {data.map((drink, index) => (
-            <Card
-              cardTestId={ `${index}-recipe-card` }
-              titleTestid={ `${index}-card-name` }
-              imgTestId={ `${index}-card-img` }
-              key={ index }
-              link={ `/drinks/${drink.idDrink}` }
-              recipeTitle={ drink.strDrink }
-              strThumb={ drink.strDrinkThumb }
-            />
-          ))}
-        </section>
-      </main>
+      <div className="buttonGroup">
+        {drinkCategories.map(({ strCategory }, index) => (
+          <CategoryListButton
+            key={ index }
+            strCategory={ strCategory }
+            onClick={ () => handleSelect(strCategory) }
+          />
+        ))}
+      </div>
+      <section className="recipes-container">
+        {data.map((drink, index) => (
+          <Card
+            cardTestId={ `${index}-recipe-card` }
+            titleTestid={ `${index}-card-name` }
+            imgTestId={ `${index}-card-img` }
+            key={ index }
+            link={ `/drinks/${drink.idDrink}` }
+            recipeTitle={ drink.strDrink }
+            strThumb={ drink.strDrinkThumb }
+          />
+        ))}
+      </section>
       <Footer />
-    </>
+    </section>
   );
 }
 
