@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Card as NovoCard, ListGroup, Carousel, Button } from 'react-bootstrap';
@@ -91,35 +92,38 @@ function DrinkRecipe() {
                   data-testid="recipe-title"
                 >
                   {strDrink}
+                  <div className="buttonsContainer">
+                    <input
+                      className="shareAndFavoriteBtn"
+                      data-testid="share-btn"
+                      src={ shareIcon }
+                      type="image"
+                      alt="compartilhar"
+                      value={ `http://localhost:3000/foods/${id}` }
+                      // Source: https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+                      onClick={ ({ target }) => {
+                        navigator.clipboard.writeText(target.value);
+                        setShowLinkCopied(true);
+                      } }
+                    />
+                    {showLinkCopied
+            && <p>Link copied!</p>}
+                    <input
+                      className="shareAndFavoriteBtn"
+                      data-testid="favorite-btn"
+                      type="image"
+                      src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
+                      alt="favoriteRecipe"
+                      onClick={ () => handleClick() }
+                    />
+                  </div>
                 </NovoCard.Title>
                 <NovoCard.Subtitle
                   data-testid="recipe-category"
                 >
                   {strAlcoholic}
                 </NovoCard.Subtitle>
-                <div className="inputs">
-                  <input
-                    data-testid="share-btn"
-                    src={ shareIcon }
-                    type="image"
-                    alt="compartilhar"
-                    value={ `http://localhost:3000/foods/${id}` }
-                    // Source: https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
-                    onClick={ ({ target }) => {
-                      navigator.clipboard.writeText(target.value);
-                      setShowLinkCopied(true);
-                    } }
-                  />
-                  {showLinkCopied
-            && <p>Link copied!</p>}
-                  <input
-                    data-testid="favorite-btn"
-                    type="image"
-                    src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
-                    alt="favoriteRecipe"
-                    onClick={ () => handleClick() }
-                  />
-                </div>
+
               </NovoCard.Body>
             </NovoCard>
             <ListGroup>

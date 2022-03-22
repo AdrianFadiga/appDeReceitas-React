@@ -62,7 +62,9 @@ function Foods() {
         ))}
       </div>
       <main>
-        <section className="recipes-container">
+        <section
+          className="recipes-container"
+        >
           {data.map((food, index) => (
             <Card
               cardTestId={ `${index}-recipe-card` }

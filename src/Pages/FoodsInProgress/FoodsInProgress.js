@@ -14,7 +14,7 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 import MyContext from '../../MyContext/MyContext';
 import Checkbox from '../../Components/Checkbox/Checkbox';
-import './FoodsInProgress.css';
+import '../FoodRecipe/FoodRecipe.css';
 
 // Finalizado até o req 53;
 // Cacar bug que faz com que o localStorage apague toda a array de checados quando da f5 na página;

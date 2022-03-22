@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap';
 import profileIcon from '../../images/profileIcon.svg';
@@ -9,10 +9,14 @@ import './Header.css';
 
 function Header() {
   const history = useHistory();
-  const { store: { setData, showSearchIcon, pageTitle } } = useContext(MyContext);
+  const { store: { setData,
+    showSearchIcon,
+    pageTitle,
+  } } = useContext(MyContext);
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [searchType, setSearchType] = useState('filter.php?i=');
+  const [showLogout, setShowLogout] = useState(false);
 
   const handleClick = async (endpoint, comparison) => {
     const fetchFoodsOrDrinks = (pageTitle.includes('Foods'))
@@ -27,6 +31,13 @@ function Header() {
       history.push(`${foodOrDrinkRecipeRedirect}`);
     }
   };
+
+  // Função feita às pressas para mostrar o botão de logout;
+  useEffect(() => {
+    const xablau = () => (pageTitle.includes('Profile')
+      ? setShowLogout(true) : setShowLogout(false));
+    xablau();
+  }, [pageTitle]);
 
   const searchForm = (
     <>
@@ -122,6 +133,22 @@ function Header() {
             />
           </label>
         )
+        }
+        {
+          showLogout
+          && (
+            <Button
+              variant="secondary"
+              data-testid="profile-logout-btn"
+              type="button"
+              onClick={ () => {
+                localStorage.clear();
+                history.push('/');
+              } }
+            >
+              Logout
+            </Button>)
+
         }
       </header>
       {showSearchBar && searchForm }

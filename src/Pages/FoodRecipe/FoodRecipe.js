@@ -84,16 +84,19 @@ function FoodRecipe() {
                 src={ strMealThumb }
               />
               <NovoCard.Body>
-                <NovoCard.Title data-testid="recipe-title">
-                  {strMeal}
-                </NovoCard.Title>
-                <NovoCard.Subtitle
-                  data-testid="recipe-category"
-                >
-                  {strCategory}
-                </NovoCard.Subtitle>
-                <div className="inputs">
+                <div>
+                  <NovoCard.Title data-testid="recipe-title">
+                    {strMeal}
+                  </NovoCard.Title>
+                  <NovoCard.Subtitle
+                    data-testid="recipe-category"
+                  >
+                    {strCategory}
+                  </NovoCard.Subtitle>
+                </div>
+                <div className="buttonsContainer">
                   <input
+                    className="shareAndFavoriteBtn"
                     data-testid="share-btn"
                     src={ shareIcon }
                     type="image"
@@ -108,6 +111,7 @@ function FoodRecipe() {
                   {showLinkCopied
             && <p>Link copied!</p>}
                   <input
+                    className="shareAndFavoriteBtn"
                     data-testid="favorite-btn"
                     type="image"
                     src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
@@ -115,6 +119,7 @@ function FoodRecipe() {
                     onClick={ () => handleClick() }
                   />
                 </div>
+
               </NovoCard.Body>
             </NovoCard>
             <ListGroup>

@@ -1,8 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import Footer from '../../Components/Footer/Footer';
 import Header from '../../Components/Header/Header';
 import MyContext from '../../MyContext/MyContext';
+import './Profile.css';
 
 function Profile() {
   const { store: { setPageTitle, setShowSearchIcon } } = useContext(MyContext);
@@ -26,40 +28,30 @@ function Profile() {
   }, []);
 
   return (
-    <>
+    <section className="profilePage">
       <Header />
+      <section className="profileData">
+        <h2 data-testid="profile-email">{ email }</h2>
+        <Button
+          variant="secondary"
+          data-testid="profile-done-btn"
+          type="button"
+          onClick={ () => history.push('/done-recipes') }
+        >
+          Done Recipes
+        </Button>
 
-      <h2 data-testid="profile-email">{ email }</h2>
-
-      <button
-        data-testid="profile-done-btn"
-        type="button"
-        onClick={ () => history.push('/done-recipes') }
-      >
-        Done Recipes
-      </button>
-
-      <button
-        data-testid="profile-favorite-btn"
-        type="button"
-        onClick={ () => history.push('/favorite-recipes') }
-      >
-        Favorite Recipes
-      </button>
-
-      <button
-        data-testid="profile-logout-btn"
-        type="button"
-        onClick={ () => {
-          localStorage.clear();
-          history.push('/');
-        } }
-      >
-        Logout
-      </button>
-
+        <Button
+          variant="secondary"
+          data-testid="profile-favorite-btn"
+          type="button"
+          onClick={ () => history.push('/favorite-recipes') }
+        >
+          Favorite Recipes
+        </Button>
+      </section>
       <Footer />
-    </>
+    </section>
   );
 }
 

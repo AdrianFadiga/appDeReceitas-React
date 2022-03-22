@@ -1,0 +1,18 @@
+.profilePage {
+    width: 100vw;
+    height: 100vh;
+    background-color: lightgray;
+}
+
+.profileData {
+    display: flex;
+    flex-direction: column;
+    height: 70%;
+    justify-content: center;
+    gap: 10px
+}
+
+.profileData h2 {
+    display: flex;
+    justify-content: center;
+}

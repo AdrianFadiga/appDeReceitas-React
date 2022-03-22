@@ -44,45 +44,47 @@ function FavoriteRecipes() {
   return (
     <>
       <Header />
-      <div className="buttonGroup">
-        <Button
-          variant="secondary"
-          data-testid="filter-by-all-btn"
-          type="button"
-          onClick={ () => setFilter('') }
-        >
-          All
-        </Button>
-        {buttons.map((button) => (
+      <section className="recipesSection">
+        <div className="buttonGroup">
           <Button
             variant="secondary"
+            data-testid="filter-by-all-btn"
             type="button"
-            value={ button.toLowerCase() }
-            key={ button }
-            onClick={ ({ target }) => setFilter(target.value) }
-            data-testid={ `filter-by-${button.toLowerCase()}-btn` }
+            onClick={ () => setFilter('') }
           >
-            {button}
+            All
           </Button>
-        ))}
-      </div>
-      {favoriteRecipes.filter(({ type }) => type.includes(filter))
-        .map(({ alcoholicOrNot,
-          category, id, image, name, nationality, type }, index) => (
-          (<FavoriteRecipeCard
-            key={ index }
-            index={ index }
-            alcoholicOrNot={ alcoholicOrNot }
-            category={ category }
-            doneDate=""
-            id={ id }
-            image={ image }
-            name={ name }
-            nationality={ nationality }
-            type={ type }
-            handleClick={ () => handleClick(id, type) }
-          />)
-        ))}
+          {buttons.map((button) => (
+            <Button
+              variant="secondary"
+              type="button"
+              value={ button.toLowerCase() }
+              key={ button }
+              onClick={ ({ target }) => setFilter(target.value) }
+              data-testid={ `filter-by-${button.toLowerCase()}-btn` }
+            >
+              {button}
+            </Button>
+          ))}
+        </div>
+        {favoriteRecipes.filter(({ type }) => type.includes(filter))
+          .map(({ alcoholicOrNot,
+            category, id, image, name, nationality, type }, index) => (
+            (<FavoriteRecipeCard
+              key={ index }
+              index={ index }
+              alcoholicOrNot={ alcoholicOrNot }
+              category={ category }
+              doneDate=""
+              id={ id }
+              image={ image }
+              name={ name }
+              nationality={ nationality }
+              type={ type }
+              handleClick={ () => handleClick(id, type) }
+            />)
+          ))}
+      </section>
     </>
   );
 }

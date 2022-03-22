@@ -13,13 +13,20 @@ function Card({ link,
 }) {
   return (
     <Link
+      className="cardContainer"
       to={ `${link}` }
       style={ { textDecoration: 'none',
         color: 'black',
-        width: '45%' } }
+        width: '45%',
+        maxHeight: '250px',
+        display: 'flex',
+        textAlign: 'center',
+      } }
     >
       <NovoCard
         data-testid={ cardTestId }
+        style={ { overflow: 'hidden',
+          textOverflow: 'ellipsis' } }
       >
         <NovoCard.Body>
           <NovoCard.Img
@@ -28,13 +35,14 @@ function Card({ link,
             alt={ recipeTitle }
             data-testid={ imgTestId }
           />
-          <NovoCard.Footer>
-            <NovoCard.Title
-              data-testid={ titleTestid }
-            >
-              {recipeTitle}
-            </NovoCard.Title>
-          </NovoCard.Footer>
+          <NovoCard.Title
+            style={ { lineHeight: '20px',
+              fontSize: '18px' } }
+            data-testid={ titleTestid }
+
+          >
+            {recipeTitle}
+          </NovoCard.Title>
         </NovoCard.Body>
       </NovoCard>
     </Link>

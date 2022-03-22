@@ -22,9 +22,7 @@ function DoneRecipeCard({ index,
   const history = useHistory();
 
   return (
-    <NovoCard
-      style={ { width: '100%', height: '25%' } }
-    >
+    <NovoCard>
       <NovoCard.Img
         type="image"
         src={ image }

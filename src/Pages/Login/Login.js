@@ -34,7 +34,9 @@ function Login() {
 
   return (
     <div className="loginPage">
-      <Form className="formContainer">
+      <Form
+        className="formContainer"
+      >
         <div className="imgContainer">
           <img src={ logo } alt="logoIfood" />
         </div>

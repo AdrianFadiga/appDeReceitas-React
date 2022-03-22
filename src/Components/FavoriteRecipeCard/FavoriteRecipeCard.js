@@ -20,9 +20,7 @@ function FavoriteRecipeCard({ index,
   const [showLinkCopied, setShowLinkCopied] = useState(false);
   const history = useHistory();
   return (
-    <NovoCard
-      style={ { width: '100%', height: '25%' } }
-    >
+    <NovoCard>
       <NovoCard.Img
         style={ { width: '300px' } }
         type="image"

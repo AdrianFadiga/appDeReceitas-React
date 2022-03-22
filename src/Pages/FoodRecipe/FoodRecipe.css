@@ -4,9 +4,34 @@
     flex-direction: column;
 }
 
+.buttonsContainer {
+    display: flex;
+    gap: 10px;
+}
+
+.card-body {
+    display: flex;
+    width: 100% !important;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #E2E3E5;    
+}
+
 .card {
-    width: 95%;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 95% !important;
     margin-bottom: 5px;
+}
+
+.card-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.shareAndFavoriteBtn {
+    width: 30px;
 }
 
 .list-group {
