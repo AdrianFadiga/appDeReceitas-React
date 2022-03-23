@@ -6,6 +6,7 @@
     justify-content: space-around;
     align-items: center;
     background-color: #FCAC0D;
+    padding-top: 10px;
 }
 
 .headerContainer {
@@ -13,12 +14,12 @@
     flex-direction: column;
     width: 100%;
     background-color: #FCAC0D;
+    align-items: center;
+    padding-bottom: 5px;
 }
 
-.btn-secondary input {
+
+/* Verificar o que fazer para acessar o input */
+/* .btn-secondary input {
     display: none;
-}
-
-.btn-group-toggle {
-    width: 100%;
-}
+} */

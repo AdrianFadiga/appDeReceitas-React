@@ -14,7 +14,7 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 import MyContext from '../../MyContext/MyContext';
 import Checkbox from '../../Components/Checkbox/Checkbox';
-import '../FoodsInProgress/FoodsInProgress.css';
+import style from '../FoodRecipe/RecipeAndInProgress.module.css';
 
 function DrinksInProgress() {
   const { store: { isFavorited,
@@ -74,7 +74,10 @@ function DrinksInProgress() {
           strDrinkThumb,
           strInstructions,
         }) => (
-          <div key={ idDrink }>
+          <div
+            className={ style.pageBody }
+            key={ idDrink }
+          >
             <NovoCard
               style={ { width: '95%' } }
             >
@@ -83,15 +86,27 @@ function DrinksInProgress() {
                 data-testid="recipe-photo"
                 src={ strDrinkThumb }
               />
-              <NovoCard.Body>
-                <NovoCard.Title data-testid="recipe-title">{strDrink}</NovoCard.Title>
-                <NovoCard.Subtitle
-                  data-testid="recipe-category"
-                >
-                  {strCategory}
+              <NovoCard.Body
+                className={ style.cardBody }
+              >
+                <div>
+                  <NovoCard.Title
+                    className={ style.cardTitle }
+                    data-testid="recipe-title"
+                  >
+                    {strDrink}
 
-                </NovoCard.Subtitle>
-                <div className="inputs">
+                  </NovoCard.Title>
+                  <NovoCard.Subtitle
+                    data-testid="recipe-category"
+                  >
+                    {strCategory}
+
+                  </NovoCard.Subtitle>
+                </div>
+                <div
+                  className={ style.buttonsContainer }
+                >
                   <input
                     data-testid="share-btn"
                     src={ shareIcon }
@@ -116,7 +131,9 @@ function DrinksInProgress() {
                 </div>
               </NovoCard.Body>
             </NovoCard>
-            <ListGroup>
+            <ListGroup
+              className={ style.listGroup }
+            >
               <h2>Ingredientes:</h2>
               {drinkIngredients.map(({ ingredient, measure }, i) => (
                 <ListGroup.Item
@@ -134,20 +151,22 @@ function DrinksInProgress() {
                 </ListGroup.Item>
               ))}
             </ListGroup>
-            <ListGroup>
+            <ListGroup
+              className={ style.listGroup }
+            >
               <h3>Modo de preparo:</h3>
               <ListGroup.Item
                 variant="secondary"
                 data-testid="instructions"
               >
                 {strInstructions}
-
               </ListGroup.Item>
             </ListGroup>
           </div>
         ),
       )}
       <Button
+        className={ style.startRecipeBtn }
         data-testid="finish-recipe-btn"
         variant={ isDisabled ? 'secondary' : 'primary' }
         type="button"

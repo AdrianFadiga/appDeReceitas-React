@@ -10,7 +10,7 @@ import { checkFoodIsFavorited,
   saveFoodFavStorage,
   removeFavStorageFood } from '../../Helpers';
 import MyContext from '../../MyContext/MyContext';
-import './FoodRecipe.css';
+import style from './RecipeAndInProgress.module.css';
 
 function FoodRecipe() {
   const { store: { isFavorited,
@@ -66,7 +66,7 @@ function FoodRecipe() {
   }, []);
 
   return (
-    <section className="foodRecipe">
+    <section className={ style.foodRecipe }>
       {foodRecipe.map(
         ({
           idMeal,
@@ -77,15 +77,24 @@ function FoodRecipe() {
           strYoutube,
         }) => (
           <div key={ idMeal }>
-            <NovoCard>
+            <NovoCard
+              className={ style.recipeCard }
+            >
               <NovoCard.Img
                 variant="top"
                 data-testid="recipe-photo"
                 src={ strMealThumb }
               />
-              <NovoCard.Body>
-                <div>
-                  <NovoCard.Title data-testid="recipe-title">
+              <NovoCard.Body
+                className={ style.cardBody }
+              >
+                <div
+                  className={ style.pageBody }
+                >
+                  <NovoCard.Title
+                    className={ style.cardTitle }
+                    data-testid="recipe-title"
+                  >
                     {strMeal}
                   </NovoCard.Title>
                   <NovoCard.Subtitle
@@ -94,9 +103,9 @@ function FoodRecipe() {
                     {strCategory}
                   </NovoCard.Subtitle>
                 </div>
-                <div className="buttonsContainer">
+                <div className={ style.buttonsContainer }>
                   <input
-                    className="shareAndFavoriteBtn"
+                    className={ style.shareAndFavoriteBtn }
                     data-testid="share-btn"
                     src={ shareIcon }
                     type="image"
@@ -111,7 +120,7 @@ function FoodRecipe() {
                   {showLinkCopied
             && <p>Link copied!</p>}
                   <input
-                    className="shareAndFavoriteBtn"
+                    className={ style.shareAndFavoriteBtn }
                     data-testid="favorite-btn"
                     type="image"
                     src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
@@ -122,7 +131,9 @@ function FoodRecipe() {
 
               </NovoCard.Body>
             </NovoCard>
-            <ListGroup>
+            <ListGroup
+              className={ style.listGroup }
+            >
               <h3>Ingredientes:</h3>
               {foodIngredients.map(({ ingredient, measure }, i) => (
                 <ListGroup.Item
@@ -134,7 +145,9 @@ function FoodRecipe() {
                 </ListGroup.Item>
               ))}
             </ListGroup>
-            <ListGroup>
+            <ListGroup
+              className={ style.listGroup }
+            >
               <h3>Modo de preparo:</h3>
               <ListGroup.Item
                 data-testid="instructions"
@@ -143,27 +156,25 @@ function FoodRecipe() {
                 {strInstructions}
               </ListGroup.Item>
             </ListGroup>
-            <NovoCard>
-              <NovoCard.Body
-                style={ { padding: '0px' } }
-              >
-                <iframe
-                  width="100%"
-                  height="315"
-                  src={ `https://www.youtube.com/embed/${strYoutube.split('=')[1]}` }
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allowFullScreen
-                />
-              </NovoCard.Body>
+            <NovoCard
+              className={ style.recipeCard }
+            >
+              <iframe
+                width="100%"
+                height="315"
+                src={ `https://www.youtube.com/embed/${strYoutube.split('=')[1]}` }
+                title="YouTube video player"
+                frameBorder="0"
+                allowFullScreen
+              />
             </NovoCard>
 
             <Button
+              className={ style.startRecipeBtn }
               onClick={ () => {
                 setInitRecipe(true);
                 history.push(`/foods/${idMeal}/in-progress`);
               } }
-              className="startRecipe"
               type="button"
               data-testid="start-recipe-btn"
             >
@@ -172,9 +183,13 @@ function FoodRecipe() {
           </div>
         ),
       )}
-      <Carousel fade>
+      <Carousel
+        fade
+        style={ { width: '95%' } }
+      >
         {recipeDrinks.map(({ idDrink, strDrink, strDrinkThumb }, i) => (
           <Carousel.Item
+            interval={ 2000 }
             data-testid={ `${i}-recomendation-card` }
             key={ i }
           >

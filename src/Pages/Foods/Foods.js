@@ -6,8 +6,7 @@ import Footer from '../../Components/Footer/Footer';
 import Header from '../../Components/Header/Header';
 import MyContext from '../../MyContext/MyContext';
 import CategoryListButton from '../../Components/CategoryListButton/CategoryListButton';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './Foods.css';
+import style from './foods.module.css';
 
 function Foods() {
   const { store: { data,
@@ -50,9 +49,9 @@ function Foods() {
   }, []);
 
   return (
-    <section className="foodsPage">
+    <section className={ style.foodsPage }>
       <Header />
-      <div className="buttonGroup">
+      <section className={ style.buttonsContainer }>
         {categoryList.map(({ strCategory }, index) => (
           <CategoryListButton
             key={ index }
@@ -60,24 +59,22 @@ function Foods() {
             onClick={ () => handleSelect(strCategory) }
           />
         ))}
-      </div>
-      <main>
-        <section
-          className="recipes-container"
-        >
-          {data.map((food, index) => (
-            <Card
-              cardTestId={ `${index}-recipe-card` }
-              titleTestid={ `${index}-card-name` }
-              imgTestId={ `${index}-card-img` }
-              key={ index }
-              link={ `/foods/${food.idMeal}` }
-              recipeTitle={ food.strMeal }
-              strThumb={ food.strMealThumb }
-            />
-          ))}
-        </section>
-      </main>
+      </section>
+      <section
+        className={ style.recipesContainer }
+      >
+        {data.map((food, index) => (
+          <Card
+            cardTestId={ `${index}-recipe-card` }
+            titleTestid={ `${index}-card-name` }
+            imgTestId={ `${index}-card-img` }
+            key={ index }
+            link={ `/foods/${food.idMeal}` }
+            recipeTitle={ food.strMeal }
+            strThumb={ food.strMealThumb }
+          />
+        ))}
+      </section>
       <Footer />
     </section>
   );

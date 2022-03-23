@@ -11,7 +11,7 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 import MyContext from '../../MyContext/MyContext';
-import '../FoodRecipe/FoodRecipe.css';
+import style from '../FoodRecipe/RecipeAndInProgress.module.css';
 
 function DrinkRecipe() {
   const { store: { isFavorited,
@@ -71,7 +71,7 @@ function DrinkRecipe() {
   }, []);
 
   return (
-    <section className="foodRecipe">
+    <section className={ style.foodRecipe }>
       {drinkRecipe.map(
         ({
           idDrink,
@@ -80,21 +80,29 @@ function DrinkRecipe() {
           strInstructions,
           strAlcoholic,
         }) => (
-          <div key={ idDrink }>
-            <NovoCard>
+          <div
+            className={ style.pageBody }
+            key={ idDrink }
+          >
+            <NovoCard
+              className={ style.recipeCard }
+            >
               <NovoCard.Img
                 variant="top"
                 src={ strDrinkThumb }
                 data-testid="recipe-photo"
               />
-              <NovoCard.Body>
+              <NovoCard.Body
+                className={ style.cardBody }
+              >
                 <NovoCard.Title
+                  className={ style.cardTitle }
                   data-testid="recipe-title"
                 >
                   {strDrink}
-                  <div className="buttonsContainer">
+                  <div className={ style.buttonsContainer }>
                     <input
-                      className="shareAndFavoriteBtn"
+                      className={ style.shareAndFavoriteBtn }
                       data-testid="share-btn"
                       src={ shareIcon }
                       type="image"
@@ -109,7 +117,7 @@ function DrinkRecipe() {
                     {showLinkCopied
             && <p>Link copied!</p>}
                     <input
-                      className="shareAndFavoriteBtn"
+                      className={ style.shareAndFavoriteBtn }
                       data-testid="favorite-btn"
                       type="image"
                       src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
@@ -126,7 +134,9 @@ function DrinkRecipe() {
 
               </NovoCard.Body>
             </NovoCard>
-            <ListGroup>
+            <ListGroup
+              className={ style.listGroup }
+            >
               <h3>Ingredientes:</h3>
               {drinkIngredients.map(({ ingredient, measure }, i) => (
                 <ListGroup.Item
@@ -138,7 +148,9 @@ function DrinkRecipe() {
                 </ListGroup.Item>
               ))}
             </ListGroup>
-            <ListGroup>
+            <ListGroup
+              className={ style.listGroup }
+            >
               <h3>Modo de preparo:</h3>
               <ListGroup.Item
                 variant="secondary"
@@ -148,8 +160,8 @@ function DrinkRecipe() {
               </ListGroup.Item>
             </ListGroup>
             <Button
+              className={ style.startRecipeBtn }
               onClick={ () => iniciarReceita(idDrink) }
-              className="startRecipe"
               type="button"
               data-testid="start-recipe-btn"
             >
@@ -160,6 +172,7 @@ function DrinkRecipe() {
             >
               {recipeFoods.map(({ idMeal, strMeal, strMealThumb }, i) => (
                 <Carousel.Item
+                  interval={ 2000 }
                   key={ i }
                   data-testid={ `${i}-recomendation-card` }
                 >

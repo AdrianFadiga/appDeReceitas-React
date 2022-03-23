@@ -20,16 +20,24 @@ function FavoriteRecipeCard({ index,
   const [showLinkCopied, setShowLinkCopied] = useState(false);
   const history = useHistory();
   return (
-    <NovoCard>
+    <NovoCard
+      style={ { display: 'flex',
+        flexDirection: 'row' } }
+    >
       <NovoCard.Img
-        style={ { width: '300px' } }
+        style={ { maxWidth: '50%',
+          maxHeight: '50%',
+          padding: '5px' } }
         type="image"
         src={ image }
         data-testid={ `${index}-horizontal-image` }
         alt="foto-da-receita"
         onClick={ () => history.push(`/${foodOrDrink}/${id}`) }
       />
-      <NovoCard.Body>
+      <NovoCard.Body
+        style={ { width: '50%',
+          height: '50%' } }
+      >
         <NovoCard.Subtitle
           data-testid={ `${index}-horizontal-top-text` }
         >

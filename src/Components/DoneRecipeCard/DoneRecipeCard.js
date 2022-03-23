@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Badge, Card as NovoCard } from 'react-bootstrap';
 import shareIcon from '../../images/shareIcon.svg';
-import './DoneRecipeCard.css';
 
 function DoneRecipeCard({ index,
   alcoholicOrNot,
@@ -22,15 +21,24 @@ function DoneRecipeCard({ index,
   const history = useHistory();
 
   return (
-    <NovoCard>
+    <NovoCard
+      style={ { display: 'flex',
+        flexDirection: 'row' } }
+    >
       <NovoCard.Img
+        style={ { maxWidth: '50%',
+          maxHeight: '50%',
+          padding: '5px' } }
         type="image"
         src={ image }
         data-testid={ `${index}-horizontal-image` }
         alt="foto-da-receita"
         onClick={ () => history.push(`/${foodOrDrink}/${id}`) }
       />
-      <NovoCard.Body>
+      <NovoCard.Body
+        style={ { width: '50%',
+          heigth: '50%' } }
+      >
         <NovoCard.Subtitle
           data-testid={ `${index}-horizontal-top-text` }
         >

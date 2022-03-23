@@ -1,0 +1,24 @@
+.explorePage {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: lightgrey;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.exploreIngredients {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 5px;
+    background-color: lightgrey;
+}
+
+.father {
+    margin-bottom: 63px;
+    background-color: lightgrey;
+}

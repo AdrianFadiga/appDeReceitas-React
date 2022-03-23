@@ -6,7 +6,7 @@ import Header from '../../Components/Header/Header';
 import Card from '../../Components/Card/Card';
 import MyContext from '../../MyContext/MyContext';
 import CategoryListButton from '../../Components/CategoryListButton/CategoryListButton';
-import './Drinks.css';
+import style from '../Foods/foods.module.css';
 
 function Drinks() {
   const { store: { data,
@@ -49,9 +49,9 @@ function Drinks() {
   }, []);
 
   return (
-    <section className="drinksPage">
+    <section className={ style.foodsPage }>
       <Header />
-      <div className="buttonGroup">
+      <div className={ style.buttonsContainer }>
         {drinkCategories.map(({ strCategory }, index) => (
           <CategoryListButton
             key={ index }
@@ -60,7 +60,9 @@ function Drinks() {
           />
         ))}
       </div>
-      <section className="recipes-container">
+      <section
+        className={ style.recipesContainer }
+      >
         {data.map((drink, index) => (
           <Card
             cardTestId={ `${index}-recipe-card` }

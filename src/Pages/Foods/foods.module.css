@@ -1,17 +1,19 @@
-.drinksPage {
-    height: 100vh;
+.foodsPage {
+    min-height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background-color: lightgrey;
-};
-
-.card {
-    width: 5px;
+    margin-bottom: 25px;
 }
 
-.buttonGroup {
+/* .card-body {
+    display: flex;
+    align-items: center;
+} */
+
+.buttonsContainer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     width: 100%;
@@ -19,11 +21,11 @@
     gap: 5px;
 }
 
-.recipes-container {
+.recipesContainer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
     padding-bottom: 45px;
-    background-color: lightgrey;
+    min-height: 100vh;
 }

@@ -5,7 +5,7 @@ import Header from '../../Components/Header/Header';
 import MyContext from '../../MyContext/MyContext';
 import { getLocalStorage,
   removeFavStorageFood, removeFavStorageDrink } from '../../Helpers';
-import './FavoriteRecipes.css';
+import style from './FavoriteRecipes.module.css';
 
 function FavoriteRecipes() {
   const { store: { setPageTitle, setShowSearchIcon } } = useContext(MyContext);
@@ -37,15 +37,11 @@ function FavoriteRecipes() {
     getFavoriteRecipes();
   }, []);
 
-  // useEffect(() => {
-  //   getFavoriteRecipes();
-  // }, []);
-
   return (
     <>
       <Header />
-      <section className="recipesSection">
-        <div className="buttonGroup">
+      <section className={ style.recipesSection }>
+        <div className={ style.buttonGroup }>
           <Button
             variant="secondary"
             data-testid="filter-by-all-btn"

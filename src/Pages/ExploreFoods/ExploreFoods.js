@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import Footer from '../../Components/Footer/Footer';
 import Header from '../../Components/Header/Header';
 import MyContext from '../../MyContext/MyContext';
 import { fetchFoods } from '../../Services';
+import style from '../Explore/Explore.module.css';
 
 function ExploreFoods() {
   const {
@@ -12,7 +14,7 @@ function ExploreFoods() {
   const history = useHistory();
 
   const redirectFoodAleatorio = async () => {
-    const res = await fetchFoods('random.php', 1);
+    const res = await fetchFoods('random.php');
     const { idMeal } = res[0];
     history.push(`/foods/${idMeal}`);
   };
@@ -25,27 +27,30 @@ function ExploreFoods() {
   return (
     <>
       <Header />
-      <nav>
-        <Link
-          to="/explore/foods/ingredients"
+      <section className={ style.explorePage }>
+        <Button
+          variant="secondary"
+          onClick={ () => history.push('/explore/foods/ingredients') }
           data-testid="explore-by-ingredient"
         >
           By Ingredient
-        </Link>
-        <Link
-          to="/explore/foods/nationalities"
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={ () => history.push('/explore/foods/nationalities') }
           data-testid="explore-by-nationality"
         >
           By Nationality
-        </Link>
-        <button
+        </Button>
+        <Button
           onClick={ () => redirectFoodAleatorio() }
+          variant="secondary"
           type="button"
           data-testid="explore-surprise"
         >
           Surprise me!
-        </button>
-      </nav>
+        </Button>
+      </section>
       <Footer />
     </>
   );

@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Card as NovoCard } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Card({ link,
   recipeTitle,
@@ -15,20 +14,29 @@ function Card({ link,
     <Link
       className="cardContainer"
       to={ `${link}` }
-      style={ { textDecoration: 'none',
-        color: 'black',
-        width: '45%',
-        maxHeight: '250px',
+      style={ {
         display: 'flex',
+        flexDirection: 'column',
+        textDecoration: 'none',
+        color: 'black',
+        width: '49%',
+        height: '25%',
         textAlign: 'center',
       } }
     >
       <NovoCard
         data-testid={ cardTestId }
-        style={ { overflow: 'hidden',
+        style={ { display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
           textOverflow: 'ellipsis' } }
       >
-        <NovoCard.Body>
+        <NovoCard.Body
+          style={ {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center' } }
+        >
           <NovoCard.Img
             variant="top"
             src={ strThumb }

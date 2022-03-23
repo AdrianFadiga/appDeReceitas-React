@@ -1,8 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { Card } from 'react-bootstrap';
 import Footer from '../../Components/Footer/Footer';
 import Header from '../../Components/Header/Header';
 import MyContext from '../../MyContext/MyContext';
 import { fetchDrinks } from '../../Services';
+import style from '../Explore/Explore.module.css';
 
 function ExploreDrinksIngredients() {
   const { store: { setPageTitle, setShowSearchIcon } } = useContext(MyContext);
@@ -23,20 +25,26 @@ function ExploreDrinksIngredients() {
   }, []);
 
   return (
-    <>
+    <section className={ style.father }>
       <Header />
-      {ingredientes.map((({ strIngredient1 }, i) => (
-        <div key={ i } data-testid={ `${i}-ingredient-card` }>
-          <img
-            data-testid={ `${i}-card-img` }
-            alt={ strIngredient1 }
-            src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
-          />
-          <p data-testid={ `${i}-card-name` }>{strIngredient1}</p>
-        </div>
-      )))}
+      <section className={ style.exploreIngredients }>
+        {ingredientes.map((({ strIngredient1 }, i) => (
+          <Card
+            key={ i }
+            data-testid={ `${i}-ingredient-card` }
+            style={ { width: '49%' } }
+          >
+            <Card.Img
+              data-testid={ `${i}-card-img` }
+              alt={ strIngredient1 }
+              src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
+            />
+            <Card.Title data-testid={ `${i}-card-name` }>{strIngredient1}</Card.Title>
+          </Card>
+        )))}
+      </section>
       <Footer />
-    </>
+    </section>
   );
 }
 

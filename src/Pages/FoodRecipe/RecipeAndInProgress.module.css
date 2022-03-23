@@ -1,7 +1,12 @@
 .foodRecipe {
     width: 100vw;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+.pageBody {
+    margin-bottom: 40px;
 }
 
 .buttonsContainer {
@@ -9,7 +14,7 @@
     gap: 10px;
 }
 
-.card-body {
+.cardBody {
     display: flex;
     width: 100% !important;
     justify-content: space-between;
@@ -17,14 +22,14 @@
     background-color: #E2E3E5;    
 }
 
-.card {
+.recipeCard {
     display: flex !important;
     flex-direction: column !important;
     width: 95% !important;
     margin-bottom: 5px;
 }
 
-.card-title {
+.cardTitle {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -34,11 +39,18 @@
     width: 30px;
 }
 
-.list-group {
+.listGroup {
     width: 95%;
     margin-bottom: 5px;
 }
 
 .carousel-inner {
     width: 95%;
+}
+
+.startRecipeBtn {
+    position: fixed;
+    bottom: 0;
+    width: 95%;
+    z-index: 2;
 }

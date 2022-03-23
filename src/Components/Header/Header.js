@@ -5,7 +5,7 @@ import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import { fetchFoods, fetchDrinks } from '../../Services';
 import MyContext from '../../MyContext/MyContext';
-import './Header.css';
+import style from './Header.module.css';
 
 function Header() {
   const history = useHistory();
@@ -42,6 +42,7 @@ function Header() {
   const searchForm = (
     <>
       <ToggleButtonGroup
+        style={ { width: '100%' } }
         type="radio"
         name="filter"
         className="mb-1"
@@ -63,7 +64,6 @@ function Header() {
           value="search.php?s="
           name="filter"
           variant="secondary"
-          // onChange={ ({ target }) => setSearchType(target.value) }
           data-testid="name-search-radio"
         >
           Name
@@ -74,7 +74,7 @@ function Header() {
           value="search.php?f="
           name="filter"
           variant="secondary"
-          onChange={ ({ target }) => setSearchType(target.value) }
+          // onChange={ ({ target }) => setSearchType(target.value) }
           data-testid="first-letter-search-radio"
         >
           First Letter
@@ -101,8 +101,8 @@ function Header() {
   );
 
   return (
-    <div className="headerContainer">
-      <header className="header">
+    <div className={ style.headerContainer }>
+      <header className={ style.header }>
         <label htmlFor="profile">
           <input
             className="button"
@@ -115,7 +115,6 @@ function Header() {
           />
         </label>
         <h3
-          className="pageTitle"
           data-testid="page-title"
         >
           {pageTitle}

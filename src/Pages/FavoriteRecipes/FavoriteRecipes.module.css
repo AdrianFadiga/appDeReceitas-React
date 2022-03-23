@@ -6,7 +6,6 @@
     width: 100vw;
     min-height: 100vh;
     background-color: lightgrey;
-
 }
 
 .buttonGroup {
@@ -16,4 +15,3 @@
     height: 30%;
     gap: 5px;
 }
-

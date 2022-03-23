@@ -1,9 +1,11 @@
 import React, { useEffect, useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import Footer from '../../Components/Footer/Footer';
 import Header from '../../Components/Header/Header';
 import { fetchDrinks } from '../../Services';
 import MyContext from '../../MyContext/MyContext';
+import style from '../Explore/Explore.module.css';
 
 function ExploreDrinks() {
   const { store: { setPageTitle, setShowSearchIcon } } = useContext(MyContext);
@@ -21,25 +23,27 @@ function ExploreDrinks() {
   }, []);
 
   return (
-    <>
+    <section className={ style.father }>
       <Header />
-      <nav>
-        <Link
-          to="/explore/drinks/ingredients"
+      <section className={ style.explorePage }>
+        <Button
+          variant="secondary"
+          onClick={ () => history.push('/explore/drinks/ingredients') }
           data-testid="explore-by-ingredient"
         >
           By Ingredient
-        </Link>
-        <button
+        </Button>
+        <Button
+          variant="secondary"
           onClick={ () => redirectDrinkdAleatorio() }
           type="button"
           data-testid="explore-surprise"
         >
           Surprise me!
-        </button>
-      </nav>
+        </Button>
+      </section>
       <Footer />
-    </>
+    </section>
   );
 }
 

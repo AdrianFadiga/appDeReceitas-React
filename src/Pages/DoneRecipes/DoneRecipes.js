@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import DoneRecipeCard from '../../Components/DoneRecipeCard/DoneRecipeCard';
 import Header from '../../Components/Header/Header';
 import MyContext from '../../MyContext/MyContext';
-import '../FavoriteRecipes/FavoriteRecipes.css';
+import style from '../FavoriteRecipes/FavoriteRecipes.module.css';
 
 function DoneRecipes() {
   const { store: { setPageTitle, setShowSearchIcon } } = useContext(MyContext);
@@ -29,8 +29,8 @@ function DoneRecipes() {
   return (
     <>
       <Header />
-      <section className="recipesSection">
-        <div className="buttonGroup">
+      <section className={ style.recipesSection }>
+        <div className={ style.buttonGroup }>
           <Button
             data-testid="filter-by-all-btn"
             type="button"

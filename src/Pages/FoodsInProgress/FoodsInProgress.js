@@ -14,10 +14,11 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 import MyContext from '../../MyContext/MyContext';
 import Checkbox from '../../Components/Checkbox/Checkbox';
-import '../FoodRecipe/FoodRecipe.css';
+import style from '../FoodRecipe/RecipeAndInProgress.module.css';
 
 // Finalizado até o req 53;
 // Cacar bug que faz com que o localStorage apague toda a array de checados quando da f5 na página;
+// Caçar bug que faz com que o button fique disabled quando desmarca uma das checkboxes;
 
 function FoodsInProgress() {
   const { store: { isFavorited,
@@ -68,7 +69,7 @@ function FoodsInProgress() {
   }, []);
 
   return (
-    <>
+    <section className={ style.foodRecipe }>
       {foodRecipe.map(
         ({
           idMeal,
@@ -77,7 +78,10 @@ function FoodsInProgress() {
           strMealThumb,
           strInstructions,
         }) => (
-          <div key={ idMeal }>
+          <div
+            className={ style.pageBody }
+            key={ idMeal }
+          >
             <NovoCard
               style={ { width: '95%' } }
             >
@@ -86,16 +90,28 @@ function FoodsInProgress() {
                 data-testid="recipe-photo"
                 src={ strMealThumb }
               />
-              <NovoCard.Body>
-                <NovoCard.Title data-testid="recipe-title">{strMeal}</NovoCard.Title>
-                <NovoCard.Subtitle
-                  data-testid="recipe-category"
-                >
-                  {strCategory}
+              <NovoCard.Body
+                className={ style.cardBody }
+              >
+                <div>
+                  <NovoCard.Title
+                    className={ style.cardTitle }
+                    data-testid="recipe-title"
+                  >
+                    {strMeal}
+                  </NovoCard.Title>
+                  <NovoCard.Subtitle
+                    data-testid="recipe-category"
+                  >
+                    {strCategory}
 
-                </NovoCard.Subtitle>
-                <div className="inputs">
+                  </NovoCard.Subtitle>
+                </div>
+                <div
+                  className={ style.buttonsContainer }
+                >
                   <input
+                    className={ style.shareAndFavoriteBtn }
                     data-testid="share-btn"
                     src={ shareIcon }
                     type="image"
@@ -110,6 +126,7 @@ function FoodsInProgress() {
                   {showLinkCopied
             && <p>Link copied!</p>}
                   <input
+                    className={ style.shareAndFavoriteBtn }
                     data-testid="favorite-btn"
                     type="image"
                     src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
@@ -119,7 +136,9 @@ function FoodsInProgress() {
                 </div>
               </NovoCard.Body>
             </NovoCard>
-            <ListGroup>
+            <ListGroup
+              className={ style.listGroup }
+            >
               <h3>Ingredientes:</h3>
               {foodIngredients.map(({ ingredient, measure }, i) => (
                 <ListGroup.Item
@@ -137,7 +156,9 @@ function FoodsInProgress() {
                 </ListGroup.Item>
               ))}
             </ListGroup>
-            <ListGroup>
+            <ListGroup
+              className={ style.listGroup }
+            >
               <h3>Modo de preparo:</h3>
               <ListGroup.Item
                 variant="secondary"
@@ -150,6 +171,7 @@ function FoodsInProgress() {
         ),
       )}
       <Button
+        className={ style.startRecipeBtn }
         data-testid="finish-recipe-btn"
         variant={ isDisabled ? 'secondary' : 'primary' }
         type="button"
@@ -161,7 +183,7 @@ function FoodsInProgress() {
       >
         Finalizar Receita
       </Button>
-    </>
+    </section>
   );
 }
 
